@@ -10,7 +10,6 @@ html = urllib2.urlopen('http://www.tdcj.state.tx.us/death_row/dr_executed_offend
 soup = BeautifulSoup(html)
 results_table = soup.find('table', attrs={'class': 'os'})
 
-
 # part 3
 
 for tr in results_table.findAll('tr'):
@@ -22,14 +21,10 @@ for tr in results_table.findAll('tr'):
         if td.text == "Last Statement": 
             # If the text has "Last Statement" in it, then... 
             last_words = urllib2.urlopen([soup.find('a', attrs='href')]).read()
-            # open the link. 
+            # open the link. Problem: every link is different because they are named after the person. The most recent one, for example, is <a href="dr_info/newburydonaldlast.html">Last Statement</a> How do we get it to go to every link? We know we have to do it in the key-value pair, but how do we put changing text in the link? 
             body = soup.find('div', attrs='id': 'body')
-            # Then go to the text div... 
-            for p in body: 
+            # Then go to the text div on the person's page. 
+            for p[-1] in body: 
                 # find the last paragraph tag... 
                 print p.text 
                 # and print the text. 
-
-
-# for p[-1] in body: 
-#     print p 
